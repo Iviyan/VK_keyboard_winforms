@@ -19,6 +19,7 @@ namespace VK_keyboard_winforms
         public void mb<T>(T m) => MessageBox.Show( m.ToString());
 
         Keyboard keyboard;
+        Now now;
         public mainForm()
         {
             InitializeComponent(); 
@@ -27,6 +28,27 @@ namespace VK_keyboard_winforms
 
             keyboard = new Keyboard();
             kbUpd();
+
+            now = new Now();
+        }
+
+        public class Now
+        {
+            private Button button;
+            public Button btn
+            {
+                get { return button; }
+                set
+                {
+                    button = value;
+
+                    string[] btnn_ = button.Name.Substring("PV_".Length).Split('_');
+                    row = int.Parse(btnn_[0]);
+                    col = int.Parse(btnn_[1]);
+                }
+            }
+            public int row = 0;
+            public int col = 0;
         }
 
         public static class colors
@@ -141,17 +163,17 @@ namespace VK_keyboard_winforms
         {
             var rc = keyboard.buttons.Count; //rowsCount
             List<object> l = new List<object>();
-            l.Add(new Keyboard.text());
+            Keyboard.text kbo = new Keyboard.text();
+            l.Add(kbo);
             keyboard.buttons.Add(l);
-            kbUpd();
 
             preview.RowCount++;
             preview.RowStyles.Insert(rc, new RowStyle(SizeType.Absolute, 38));
-            preview.Controls.Add(PV_addv, 0, rc + 1);
+            preview.Controls.Add(sender as Button, 0, rc + 1);
             if (rc >= 10 - 1)
             {
                 //preview.RowStyles[rc + 1].Height = 0;
-                PV_addv.Visible = false;
+                (sender as Button).Visible = false;
             }
 
             TableLayoutPanel row = new TableLayoutPanel();
@@ -166,12 +188,14 @@ namespace VK_keyboard_winforms
 
             Button PV_btn = new Button();
             PV_btn.Name = "PV_" + rc.ToString() + "_0";
-            PV_btn.Text = PV_btn.Name;
+            PV_btn.Text = PV_btn.Name; 
             PV_btn.Dock = DockStyle.Fill;
             PV_btn.BackColor = colors.primary;
             PV_btn.Margin = new Padding(1);
             PV_btn.ForeColor = Color.White;
             PV_btn.Click += PV_btn_Click;
+
+            kbo.action.label = PV_btn.Text;
 
             row.Controls.Add(PV_btn, 0, 0);
             preview.Controls.Add(row, 0, rc);
@@ -183,6 +207,8 @@ namespace VK_keyboard_winforms
             PV_addh.Margin = new Padding(2, 3, 8, 3);
             row.Controls.Add(PV_addh, 1, 0);
             PV_addh.Click += PV_addh_Click;
+
+            kbUpd();
         }
 
         private void PV_addh_Click(object sender, EventArgs e)
@@ -191,8 +217,8 @@ namespace VK_keyboard_winforms
             int row = int.Parse(btn.Name.Substring("PV_addh_".Length));
             int rc = keyboard.buttons.Count; //rowsCount
             int cc = keyboard.buttons[row].Count;
-            keyboard.buttons[row].Add(new Keyboard.text());
-            kbUpd();
+            Keyboard.text kbo = new Keyboard.text();
+            keyboard.buttons[row].Add(kbo);
 
             TableLayoutPanel rowel = preview.Controls.Find("PV_row_" + row.ToString(), false).FirstOrDefault() as TableLayoutPanel;
 
@@ -220,17 +246,85 @@ namespace VK_keyboard_winforms
             PV_btn.Click += PV_btn_Click;
             rowel.Controls.Add(PV_btn, cc, 0);
 
+            kbo.action.label = PV_btn.Text;
+
             rowel.Controls.Add(sender as Button, cc + 1, 0);
+
+            kbUpd();
         }
 
         private void PV_btn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            string[] btnn_ = btn.Name.Substring("PV_".Length).Split('_');
+            /*string[] btnn_ = btn.Name.Substring("PV_".Length).Split('_');
             int row = int.Parse(btnn_[0]);
-            int col = int.Parse(btnn_[1]);
-            //mb($"{row} - {col}");
+            int col = int.Parse(btnn_[1]);*/
+            now.btn = btn;
+            int row = now.row;
+            int col = now.col;
+            // mb($"{row} - {col}");
 
+            if (!Spanel.Visible) Spanel.Visible = true; // Подготовка - показ панели и сокрытие всех элементов, что могут не пригодится
+            Plabel.Visible = false;
+            Plink.Visible = false;
+            Phash.Visible = false;
+            Papp_id.Visible = false;
+            Powner_id.Visible = false;
+            
+            switch (keyboard.buttons[row][col])
+            {
+                case Keyboard.text t:
+                    {
+                        CBbtype.SelectedIndex = 0;
+                        TBlabel.Text = t.action.label;
+                        TBpayload.Text = t.action.payload;
+
+                        Plabel.Visible = true;
+                    }
+                    break;
+                case Keyboard.open_link t:
+                    {
+                        CBbtype.SelectedIndex = 1;
+                        TBlabel.Text = t.action.label;
+                        TBlink.Text = t.action.link;
+                        TBpayload.Text = t.action.payload;
+
+                        Plabel.Visible = true;
+                        Plink.Visible = true;
+                    }
+                    break;
+                case Keyboard.location t:
+                    {
+                        CBbtype.SelectedIndex = 2;
+                        TBpayload.Text = t.action.payload;
+                    }
+                    break;
+                case Keyboard.vkpay t:
+                    {
+                        CBbtype.SelectedIndex = 3;
+                        TBhash.Text = t.action.hash;
+                        TBpayload.Text = t.action.payload;
+
+                        Phash.Visible = true;
+                    }
+                    break;
+                case Keyboard.open_app t:
+                    {
+                        CBbtype.SelectedIndex = 4;
+                        TBapp_id.Text = t.action.app_id.ToString();
+                        TBowner_id.Text = t.action.owner_id.ToString();
+                        TBlabel.Text = t.action.label;
+                        TBhash.Text = t.action.hash;
+                        TBpayload.Text = t.action.payload;
+
+                        Papp_id.Visible = true;
+                        Powner_id.Visible = true;
+                        Plabel.Visible = true;
+                        Phash.Visible = true;
+                    }
+                    break;
+            }
+            
         }
 
         private void документацяToolStripMenuItem_Click(object sender, EventArgs e)

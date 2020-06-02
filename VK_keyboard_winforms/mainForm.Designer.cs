@@ -38,6 +38,7 @@
             this.CBinline = new System.Windows.Forms.CheckBox();
             this.CBonetime = new System.Windows.Forms.CheckBox();
             this.Spanel = new System.Windows.Forms.Panel();
+            this.Bdel = new System.Windows.Forms.Button();
             this.Ppayload = new System.Windows.Forms.GroupBox();
             this.TBpayload = new System.Windows.Forms.TextBox();
             this.Powner_id = new System.Windows.Forms.GroupBox();
@@ -57,14 +58,13 @@
             this.CBprimary = new System.Windows.Forms.Button();
             this.CBsecondary = new System.Windows.Forms.Button();
             this.Pbtype = new System.Windows.Forms.GroupBox();
-            this.buttonType = new System.Windows.Forms.ComboBox();
+            this.CBbtype = new System.Windows.Forms.ComboBox();
             this.view = new System.Windows.Forms.TabControl();
             this.previewTP = new System.Windows.Forms.TabPage();
             this.preview = new System.Windows.Forms.TableLayoutPanel();
             this.PV_addv = new System.Windows.Forms.Button();
             this.jsonview = new System.Windows.Forms.TabPage();
             this.JSONtb = new System.Windows.Forms.RichTextBox();
-            this.Bdel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -142,7 +142,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.view);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 667);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 467);
             this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -163,7 +163,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 667);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 467);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // CBinline
@@ -208,8 +208,27 @@
             this.Spanel.Location = new System.Drawing.Point(7, 70);
             this.Spanel.Name = "Spanel";
             this.Spanel.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.Spanel.Size = new System.Drawing.Size(316, 590);
+            this.Spanel.Size = new System.Drawing.Size(316, 390);
             this.Spanel.TabIndex = 3;
+            this.Spanel.Visible = false;
+            // 
+            // Bdel
+            // 
+            this.Bdel.AutoSize = true;
+            this.Bdel.BackColor = System.Drawing.Color.IndianRed;
+            this.Bdel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Bdel.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.Bdel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.Bdel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.Bdel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Bdel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Bdel.ForeColor = System.Drawing.Color.White;
+            this.Bdel.Location = new System.Drawing.Point(0, 353);
+            this.Bdel.Name = "Bdel";
+            this.Bdel.Size = new System.Drawing.Size(316, 37);
+            this.Bdel.TabIndex = 10;
+            this.Bdel.Text = "Удалить";
+            this.Bdel.UseVisualStyleBackColor = false;
             // 
             // Ppayload
             // 
@@ -416,7 +435,7 @@
             // Pbtype
             // 
             this.Pbtype.AutoSize = true;
-            this.Pbtype.Controls.Add(this.buttonType);
+            this.Pbtype.Controls.Add(this.CBbtype);
             this.Pbtype.Dock = System.Windows.Forms.DockStyle.Top;
             this.Pbtype.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Pbtype.Location = new System.Drawing.Point(0, 10);
@@ -426,21 +445,23 @@
             this.Pbtype.TabStop = false;
             this.Pbtype.Text = "type / Тип кнопки";
             // 
-            // buttonType
+            // CBbtype
             // 
-            this.buttonType.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonType.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonType.FormattingEnabled = true;
-            this.buttonType.Items.AddRange(new object[] {
+            this.CBbtype.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CBbtype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBbtype.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.CBbtype.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CBbtype.FormattingEnabled = true;
+            this.CBbtype.Items.AddRange(new object[] {
             "Text",
             "Open Link",
             "Location",
             "VK Pay",
             "VK Apps"});
-            this.buttonType.Location = new System.Drawing.Point(3, 22);
-            this.buttonType.Name = "buttonType";
-            this.buttonType.Size = new System.Drawing.Size(310, 28);
-            this.buttonType.TabIndex = 2;
+            this.CBbtype.Location = new System.Drawing.Point(3, 22);
+            this.CBbtype.Name = "CBbtype";
+            this.CBbtype.Size = new System.Drawing.Size(310, 28);
+            this.CBbtype.TabIndex = 2;
             // 
             // view
             // 
@@ -452,7 +473,7 @@
             this.view.Multiline = true;
             this.view.Name = "view";
             this.view.SelectedIndex = 0;
-            this.view.Size = new System.Drawing.Size(466, 667);
+            this.view.Size = new System.Drawing.Size(466, 467);
             this.view.TabIndex = 0;
             // 
             // previewTP
@@ -461,7 +482,7 @@
             this.previewTP.Location = new System.Drawing.Point(4, 29);
             this.previewTP.Name = "previewTP";
             this.previewTP.Padding = new System.Windows.Forms.Padding(3);
-            this.previewTP.Size = new System.Drawing.Size(458, 634);
+            this.previewTP.Size = new System.Drawing.Size(458, 434);
             this.previewTP.TabIndex = 0;
             this.previewTP.Text = "preview";
             this.previewTP.UseVisualStyleBackColor = true;
@@ -477,8 +498,8 @@
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 628F));
-            this.preview.Size = new System.Drawing.Size(452, 628);
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 630F));
+            this.preview.Size = new System.Drawing.Size(452, 428);
             this.preview.TabIndex = 2;
             // 
             // PV_addv
@@ -516,29 +537,11 @@
             this.JSONtb.TabIndex = 0;
             this.JSONtb.Text = "";
             // 
-            // Bdel
-            // 
-            this.Bdel.AutoSize = true;
-            this.Bdel.BackColor = System.Drawing.Color.IndianRed;
-            this.Bdel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Bdel.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.Bdel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.Bdel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.Bdel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Bdel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bdel.ForeColor = System.Drawing.Color.White;
-            this.Bdel.Location = new System.Drawing.Point(0, 553);
-            this.Bdel.Name = "Bdel";
-            this.Bdel.Size = new System.Drawing.Size(316, 37);
-            this.Bdel.TabIndex = 10;
-            this.Bdel.Text = "Удалить";
-            this.Bdel.UseVisualStyleBackColor = false;
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 700);
+            this.ClientSize = new System.Drawing.Size(800, 500);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -592,7 +595,7 @@
         private System.Windows.Forms.CheckBox CBonetime;
         private System.Windows.Forms.CheckBox CBinline;
         private System.Windows.Forms.TableLayoutPanel preview;
-        private System.Windows.Forms.ComboBox buttonType;
+        private System.Windows.Forms.ComboBox CBbtype;
         private System.Windows.Forms.RichTextBox JSONtb;
         private System.Windows.Forms.Button PV_addv;
         private System.Windows.Forms.Panel Spanel;
