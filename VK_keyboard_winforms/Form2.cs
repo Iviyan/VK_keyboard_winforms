@@ -16,6 +16,8 @@ namespace VK_keyboard_winforms
 {
     public partial class Form2 : Form
     {
+        public void mb<T>(T m) => MessageBox.Show( m.ToString());
+
         Keyboard keyboard;
         public Form2()
         {
@@ -154,7 +156,7 @@ namespace VK_keyboard_winforms
 
             TableLayoutPanel row = new TableLayoutPanel();
             row.Dock = DockStyle.Fill;
-            row.Name = "PV_row_" + (preview.RowCount - 1).ToString();
+            row.Name = "PV_row_" + (preview.RowCount - 2).ToString();
             row.ColumnCount = 2;
             row.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             row.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30));
@@ -169,6 +171,7 @@ namespace VK_keyboard_winforms
             PV_btn.BackColor = colors.primary;
             PV_btn.Margin = new Padding(1);
             PV_btn.ForeColor = Color.White;
+            PV_btn.Click += PV_btn_Click;
 
             row.Controls.Add(PV_btn, 0, 0);
             preview.Controls.Add(row, 0, rc);
@@ -201,21 +204,39 @@ namespace VK_keyboard_winforms
                 rowel.ColumnStyles[i].Width = 100 / cc;
             }
             
-            rowel.Controls.Add(sender as Button, 0, cc + 1);
             if (cc >= 5 - 1)
             {
-                //preview.RowStyles[rc + 1].Height = 0;
+                rowel.ColumnStyles[cc+1].Width = 0;
                 (sender as Button).Visible = false;
             }
 
             Button PV_btn = new Button();
-            PV_btn.Name = "PV_" + rc.ToString() + "_" + cc.ToString();
+            PV_btn.Name = "PV_" + (rc-1).ToString() + "_" + cc.ToString();
             PV_btn.Text = PV_btn.Name;
             PV_btn.Dock = DockStyle.Fill;
             PV_btn.BackColor = colors.primary;
             PV_btn.Margin = new Padding(1);
             PV_btn.ForeColor = Color.White;
-            rowel.Controls.Add(PV_btn, 0, rc);
+            PV_btn.Click += PV_btn_Click;
+            rowel.Controls.Add(PV_btn, cc, 0);
+
+            rowel.Controls.Add(sender as Button, cc + 1, 0);
+        }
+
+        private void PV_btn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string[] btnn_ = btn.Name.Substring("PV_".Length).Split('_');
+            int row = int.Parse(btnn_[0]);
+            int col = int.Parse(btnn_[1]);
+            //mb($"{row} - {col}");
+
+        }
+
+        private void документацяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string url = "https://vk.com/dev/bots_docs_3";
+            System.Diagnostics.Process.Start(url);
         }
     }
 }

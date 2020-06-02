@@ -1,6 +1,6 @@
 ﻿namespace VK_keyboard_winforms
 {
-    partial class mainForm
+    partial class Form1
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -100,7 +100,7 @@
             this.Lbtn.Text = "Открыть";
             this.Lbtn.UseVisualStyleBackColor = false;
             // 
-            // mainForm
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,7 +108,7 @@
             this.Controls.Add(this.MF_tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "mainForm";
+            this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(5, 10, 5, 4);
             this.Text = "VK keyboard";
             this.MF_tableLayoutPanel.ResumeLayout(false);
