@@ -1,6 +1,6 @@
 ﻿namespace VK_keyboard_winforms
 {
-    partial class Form2
+    partial class mainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,8 +38,10 @@
             this.CBinline = new System.Windows.Forms.CheckBox();
             this.CBonetime = new System.Windows.Forms.CheckBox();
             this.Spanel = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Ppayload = new System.Windows.Forms.GroupBox();
+            this.TBpayload = new System.Windows.Forms.TextBox();
+            this.Powner_id = new System.Windows.Forms.GroupBox();
+            this.TBowner_id = new System.Windows.Forms.TextBox();
             this.Papp_id = new System.Windows.Forms.GroupBox();
             this.TBapp_id = new System.Windows.Forms.TextBox();
             this.Phash = new System.Windows.Forms.GroupBox();
@@ -62,6 +64,7 @@
             this.PV_addv = new System.Windows.Forms.Button();
             this.jsonview = new System.Windows.Forms.TabPage();
             this.JSONtb = new System.Windows.Forms.RichTextBox();
+            this.Bdel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -69,7 +72,8 @@
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.Spanel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.Ppayload.SuspendLayout();
+            this.Powner_id.SuspendLayout();
             this.Papp_id.SuspendLayout();
             this.Phash.SuspendLayout();
             this.Plink.SuspendLayout();
@@ -138,7 +142,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.view);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 467);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 667);
             this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -159,7 +163,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 467);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 667);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // CBinline
@@ -191,7 +195,9 @@
             // 
             // Spanel
             // 
-            this.Spanel.Controls.Add(this.groupBox1);
+            this.Spanel.Controls.Add(this.Bdel);
+            this.Spanel.Controls.Add(this.Ppayload);
+            this.Spanel.Controls.Add(this.Powner_id);
             this.Spanel.Controls.Add(this.Papp_id);
             this.Spanel.Controls.Add(this.Phash);
             this.Spanel.Controls.Add(this.Plink);
@@ -202,29 +208,51 @@
             this.Spanel.Location = new System.Drawing.Point(7, 70);
             this.Spanel.Name = "Spanel";
             this.Spanel.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.Spanel.Size = new System.Drawing.Size(316, 390);
+            this.Spanel.Size = new System.Drawing.Size(316, 590);
             this.Spanel.TabIndex = 3;
             // 
-            // groupBox1
+            // Ppayload
             // 
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 342);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(316, 51);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "app_id / идентификатор приложения (Vk Apps)";
+            this.Ppayload.AutoSize = true;
+            this.Ppayload.Controls.Add(this.TBpayload);
+            this.Ppayload.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Ppayload.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Ppayload.Location = new System.Drawing.Point(0, 393);
+            this.Ppayload.Name = "Ppayload";
+            this.Ppayload.Size = new System.Drawing.Size(316, 51);
+            this.Ppayload.TabIndex = 9;
+            this.Ppayload.TabStop = false;
+            this.Ppayload.Text = "payload";
             // 
-            // textBox1
+            // TBpayload
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Location = new System.Drawing.Point(3, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(310, 26);
-            this.textBox1.TabIndex = 0;
+            this.TBpayload.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TBpayload.Location = new System.Drawing.Point(3, 22);
+            this.TBpayload.Name = "TBpayload";
+            this.TBpayload.Size = new System.Drawing.Size(310, 26);
+            this.TBpayload.TabIndex = 0;
+            // 
+            // Powner_id
+            // 
+            this.Powner_id.AutoSize = true;
+            this.Powner_id.Controls.Add(this.TBowner_id);
+            this.Powner_id.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Powner_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Powner_id.Location = new System.Drawing.Point(0, 342);
+            this.Powner_id.Name = "Powner_id";
+            this.Powner_id.Size = new System.Drawing.Size(316, 51);
+            this.Powner_id.TabIndex = 8;
+            this.Powner_id.TabStop = false;
+            this.Powner_id.Text = "owner_id (сообщество) - число";
+            this.Powner_id.Visible = false;
+            // 
+            // TBowner_id
+            // 
+            this.TBowner_id.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TBowner_id.Location = new System.Drawing.Point(3, 22);
+            this.TBowner_id.Name = "TBowner_id";
+            this.TBowner_id.Size = new System.Drawing.Size(310, 26);
+            this.TBowner_id.TabIndex = 0;
             // 
             // Papp_id
             // 
@@ -237,7 +265,8 @@
             this.Papp_id.Size = new System.Drawing.Size(316, 51);
             this.Papp_id.TabIndex = 7;
             this.Papp_id.TabStop = false;
-            this.Papp_id.Text = "app_id / идентификатор приложения (Vk Apps)";
+            this.Papp_id.Text = "app_id (Vk Apps) - число";
+            this.Papp_id.Visible = false;
             // 
             // TBapp_id
             // 
@@ -259,6 +288,7 @@
             this.Phash.TabIndex = 6;
             this.Phash.TabStop = false;
             this.Phash.Text = "hash";
+            this.Phash.Visible = false;
             // 
             // TBhash
             // 
@@ -280,6 +310,7 @@
             this.Plink.TabIndex = 5;
             this.Plink.TabStop = false;
             this.Plink.Text = "link / Ссылка / URL";
+            this.Plink.Visible = false;
             // 
             // TBlink
             // 
@@ -301,6 +332,7 @@
             this.Plabel.TabIndex = 4;
             this.Plabel.TabStop = false;
             this.Plabel.Text = "label / Надпись";
+            this.Plabel.Visible = false;
             // 
             // TBlabel
             // 
@@ -420,7 +452,7 @@
             this.view.Multiline = true;
             this.view.Name = "view";
             this.view.SelectedIndex = 0;
-            this.view.Size = new System.Drawing.Size(466, 467);
+            this.view.Size = new System.Drawing.Size(466, 667);
             this.view.TabIndex = 0;
             // 
             // previewTP
@@ -429,7 +461,7 @@
             this.previewTP.Location = new System.Drawing.Point(4, 29);
             this.previewTP.Name = "previewTP";
             this.previewTP.Padding = new System.Windows.Forms.Padding(3);
-            this.previewTP.Size = new System.Drawing.Size(458, 434);
+            this.previewTP.Size = new System.Drawing.Size(458, 634);
             this.previewTP.TabIndex = 0;
             this.previewTP.Text = "preview";
             this.previewTP.UseVisualStyleBackColor = true;
@@ -445,8 +477,8 @@
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 432F));
-            this.preview.Size = new System.Drawing.Size(452, 428);
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 628F));
+            this.preview.Size = new System.Drawing.Size(452, 628);
             this.preview.TabIndex = 2;
             // 
             // PV_addv
@@ -484,15 +516,33 @@
             this.JSONtb.TabIndex = 0;
             this.JSONtb.Text = "";
             // 
-            // Form2
+            // Bdel
+            // 
+            this.Bdel.AutoSize = true;
+            this.Bdel.BackColor = System.Drawing.Color.IndianRed;
+            this.Bdel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Bdel.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.Bdel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.Bdel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.Bdel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Bdel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Bdel.ForeColor = System.Drawing.Color.White;
+            this.Bdel.Location = new System.Drawing.Point(0, 553);
+            this.Bdel.Name = "Bdel";
+            this.Bdel.Size = new System.Drawing.Size(316, 37);
+            this.Bdel.TabIndex = 10;
+            this.Bdel.Text = "Удалить";
+            this.Bdel.UseVisualStyleBackColor = false;
+            // 
+            // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.ClientSize = new System.Drawing.Size(800, 700);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form2";
+            this.Name = "mainForm";
             this.Text = "Клавиатура";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -504,8 +554,10 @@
             this.tableLayoutPanel1.PerformLayout();
             this.Spanel.ResumeLayout(false);
             this.Spanel.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.Ppayload.ResumeLayout(false);
+            this.Ppayload.PerformLayout();
+            this.Powner_id.ResumeLayout(false);
+            this.Powner_id.PerformLayout();
             this.Papp_id.ResumeLayout(false);
             this.Papp_id.PerformLayout();
             this.Phash.ResumeLayout(false);
@@ -560,7 +612,10 @@
         private System.Windows.Forms.TextBox TBhash;
         private System.Windows.Forms.GroupBox Papp_id;
         private System.Windows.Forms.TextBox TBapp_id;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox Powner_id;
+        private System.Windows.Forms.TextBox TBowner_id;
+        private System.Windows.Forms.GroupBox Ppayload;
+        private System.Windows.Forms.TextBox TBpayload;
+        private System.Windows.Forms.Button Bdel;
     }
 }

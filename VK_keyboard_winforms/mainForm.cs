@@ -14,12 +14,12 @@ using Newtonsoft.Json.Serialization;
 
 namespace VK_keyboard_winforms
 {
-    public partial class Form2 : Form
+    public partial class mainForm : Form
     {
         public void mb<T>(T m) => MessageBox.Show( m.ToString());
 
         Keyboard keyboard;
-        public Form2()
+        public mainForm()
         {
             InitializeComponent(); 
             //string s = @"{""inline"":false,""one_time"":false,""buttons"":[[{""type"":""text"",""payload"":null}]]}";
