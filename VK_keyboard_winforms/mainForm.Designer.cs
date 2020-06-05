@@ -142,7 +142,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.view);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 467);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 517);
             this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -163,7 +163,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 467);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 517);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // CBinline
@@ -208,7 +208,7 @@
             this.Spanel.Location = new System.Drawing.Point(7, 70);
             this.Spanel.Name = "Spanel";
             this.Spanel.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.Spanel.Size = new System.Drawing.Size(316, 390);
+            this.Spanel.Size = new System.Drawing.Size(316, 440);
             this.Spanel.TabIndex = 3;
             this.Spanel.Visible = false;
             // 
@@ -223,12 +223,13 @@
             this.Bdel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Bdel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Bdel.ForeColor = System.Drawing.Color.White;
-            this.Bdel.Location = new System.Drawing.Point(0, 353);
+            this.Bdel.Location = new System.Drawing.Point(0, 403);
             this.Bdel.Name = "Bdel";
             this.Bdel.Size = new System.Drawing.Size(316, 37);
             this.Bdel.TabIndex = 10;
             this.Bdel.Text = "Удалить";
             this.Bdel.UseVisualStyleBackColor = false;
+            this.Bdel.Click += new System.EventHandler(this.Bdel_Click);
             // 
             // Ppayload
             // 
@@ -250,6 +251,7 @@
             this.TBpayload.Name = "TBpayload";
             this.TBpayload.Size = new System.Drawing.Size(310, 26);
             this.TBpayload.TabIndex = 0;
+            this.TBpayload.TextChanged += new System.EventHandler(this.TBpayload_TextChanged);
             // 
             // Powner_id
             // 
@@ -272,6 +274,7 @@
             this.TBowner_id.Name = "TBowner_id";
             this.TBowner_id.Size = new System.Drawing.Size(310, 26);
             this.TBowner_id.TabIndex = 0;
+            this.TBowner_id.TextChanged += new System.EventHandler(this.TBowner_id_TextChanged);
             // 
             // Papp_id
             // 
@@ -294,6 +297,7 @@
             this.TBapp_id.Name = "TBapp_id";
             this.TBapp_id.Size = new System.Drawing.Size(310, 26);
             this.TBapp_id.TabIndex = 0;
+            this.TBapp_id.TextChanged += new System.EventHandler(this.TBapp_id_TextChanged);
             // 
             // Phash
             // 
@@ -316,6 +320,7 @@
             this.TBhash.Name = "TBhash";
             this.TBhash.Size = new System.Drawing.Size(310, 26);
             this.TBhash.TabIndex = 0;
+            this.TBhash.TextChanged += new System.EventHandler(this.TBhash_TextChanged);
             // 
             // Plink
             // 
@@ -338,6 +343,7 @@
             this.TBlink.Name = "TBlink";
             this.TBlink.Size = new System.Drawing.Size(310, 26);
             this.TBlink.TabIndex = 0;
+            this.TBlink.TextChanged += new System.EventHandler(this.TBlink_TextChanged);
             // 
             // Plabel
             // 
@@ -360,6 +366,7 @@
             this.TBlabel.Name = "TBlabel";
             this.TBlabel.Size = new System.Drawing.Size(310, 26);
             this.TBlabel.TabIndex = 0;
+            this.TBlabel.TextChanged += new System.EventHandler(this.TBlabel_TextChanged);
             // 
             // Pcolor
             // 
@@ -401,6 +408,7 @@
             this.CBnegative.Size = new System.Drawing.Size(71, 44);
             this.CBnegative.TabIndex = 3;
             this.CBnegative.UseVisualStyleBackColor = false;
+            this.CBnegative.Click += new System.EventHandler(this.CB_Click);
             // 
             // CBpositive
             // 
@@ -411,6 +419,7 @@
             this.CBpositive.Size = new System.Drawing.Size(73, 44);
             this.CBpositive.TabIndex = 2;
             this.CBpositive.UseVisualStyleBackColor = false;
+            this.CBpositive.Click += new System.EventHandler(this.CB_Click);
             // 
             // CBprimary
             // 
@@ -421,6 +430,7 @@
             this.CBprimary.Size = new System.Drawing.Size(71, 44);
             this.CBprimary.TabIndex = 1;
             this.CBprimary.UseVisualStyleBackColor = false;
+            this.CBprimary.Click += new System.EventHandler(this.CB_Click);
             // 
             // CBsecondary
             // 
@@ -431,6 +441,7 @@
             this.CBsecondary.Size = new System.Drawing.Size(71, 44);
             this.CBsecondary.TabIndex = 0;
             this.CBsecondary.UseVisualStyleBackColor = false;
+            this.CBsecondary.Click += new System.EventHandler(this.CB_Click);
             // 
             // Pbtype
             // 
@@ -462,6 +473,7 @@
             this.CBbtype.Name = "CBbtype";
             this.CBbtype.Size = new System.Drawing.Size(310, 28);
             this.CBbtype.TabIndex = 2;
+            this.CBbtype.SelectionChangeCommitted += new System.EventHandler(this.CBbtype_SelectionChangeCommitted);
             // 
             // view
             // 
@@ -473,7 +485,7 @@
             this.view.Multiline = true;
             this.view.Name = "view";
             this.view.SelectedIndex = 0;
-            this.view.Size = new System.Drawing.Size(466, 467);
+            this.view.Size = new System.Drawing.Size(466, 517);
             this.view.TabIndex = 0;
             // 
             // previewTP
@@ -482,7 +494,7 @@
             this.previewTP.Location = new System.Drawing.Point(4, 29);
             this.previewTP.Name = "previewTP";
             this.previewTP.Padding = new System.Windows.Forms.Padding(3);
-            this.previewTP.Size = new System.Drawing.Size(458, 434);
+            this.previewTP.Size = new System.Drawing.Size(458, 484);
             this.previewTP.TabIndex = 0;
             this.previewTP.Text = "preview";
             this.previewTP.UseVisualStyleBackColor = true;
@@ -498,8 +510,8 @@
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 630F));
-            this.preview.Size = new System.Drawing.Size(452, 428);
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 633F));
+            this.preview.Size = new System.Drawing.Size(452, 478);
             this.preview.TabIndex = 2;
             // 
             // PV_addv
@@ -523,7 +535,7 @@
             this.jsonview.Location = new System.Drawing.Point(4, 29);
             this.jsonview.Name = "jsonview";
             this.jsonview.Padding = new System.Windows.Forms.Padding(3);
-            this.jsonview.Size = new System.Drawing.Size(458, 434);
+            this.jsonview.Size = new System.Drawing.Size(458, 484);
             this.jsonview.TabIndex = 1;
             this.jsonview.Text = "JSON";
             this.jsonview.UseVisualStyleBackColor = true;
@@ -533,7 +545,7 @@
             this.JSONtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JSONtb.Location = new System.Drawing.Point(3, 3);
             this.JSONtb.Name = "JSONtb";
-            this.JSONtb.Size = new System.Drawing.Size(452, 428);
+            this.JSONtb.Size = new System.Drawing.Size(452, 478);
             this.JSONtb.TabIndex = 0;
             this.JSONtb.Text = "";
             // 
@@ -541,7 +553,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.ClientSize = new System.Drawing.Size(800, 550);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

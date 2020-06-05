@@ -16,7 +16,7 @@ namespace VK_keyboard_winforms
 {
     public partial class mainForm : Form
     {
-        public void mb<T>(T m) => MessageBox.Show( m.ToString());
+        public void mb<T>(T m) => MessageBox.Show(m?.ToString());
 
         Keyboard keyboard;
         Now now;
@@ -30,6 +30,8 @@ namespace VK_keyboard_winforms
             kbUpd();
 
             now = new Now();
+
+            //CBbtype.ca
         }
 
         public class Now
@@ -51,12 +53,25 @@ namespace VK_keyboard_winforms
             public int col = 0;
         }
 
+        public Color fromHEX(string s) => Color.FromArgb(Int32.Parse(s.TrimStart('#'), System.Globalization.NumberStyles.HexNumber));
+
         public static class colors
         {
             public static Color primary = Color.FromArgb(81, 129, 184);
             public static Color secondary = Color.White;
             public static Color negative = Color.FromArgb(230, 70, 70);
             public static Color positive = Color.FromArgb(75, 179, 75);
+            public static Color fromStr(string c)
+            {
+                switch (c)
+                {
+                    case "secondary": return secondary;
+                    case "negative": return negative;
+                    case "positive": return positive;
+                    case "primary": default: return primary;
+
+                }
+            }
         };
         class Keyboard
         {
@@ -220,7 +235,7 @@ namespace VK_keyboard_winforms
             Keyboard.text kbo = new Keyboard.text();
             keyboard.buttons[row].Add(kbo);
 
-            TableLayoutPanel rowel = preview.Controls.Find("PV_row_" + row.ToString(), false).FirstOrDefault() as TableLayoutPanel;
+            TableLayoutPanel rowel = btn.Parent as TableLayoutPanel;//preview.Controls.Find("PV_row_" + row.ToString(), false).FirstOrDefault() as TableLayoutPanel;
 
             rowel.ColumnCount++;
             rowel.ColumnStyles.Insert(cc, new ColumnStyle(SizeType.Percent, 100 / cc));
@@ -237,7 +252,7 @@ namespace VK_keyboard_winforms
             }
 
             Button PV_btn = new Button();
-            PV_btn.Name = "PV_" + (rc-1).ToString() + "_" + cc.ToString();
+            PV_btn.Name = $"PV_{row}_{cc}";
             PV_btn.Text = PV_btn.Name;
             PV_btn.Dock = DockStyle.Fill;
             PV_btn.BackColor = colors.primary;
@@ -253,30 +268,24 @@ namespace VK_keyboard_winforms
             kbUpd();
         }
 
-        private void PV_btn_Click(object sender, EventArgs e)
+        public void setPanels(int row, int col)
         {
-            Button btn = (Button)sender;
-            /*string[] btnn_ = btn.Name.Substring("PV_".Length).Split('_');
-            int row = int.Parse(btnn_[0]);
-            int col = int.Parse(btnn_[1]);*/
-            now.btn = btn;
-            int row = now.row;
-            int col = now.col;
-            // mb($"{row} - {col}");
+            if (!Spanel.Visible) Spanel.Visible = true;
 
-            if (!Spanel.Visible) Spanel.Visible = true; // Подготовка - показ панели и сокрытие всех элементов, что могут не пригодится
             Plabel.Visible = false;
+            Pcolor.Visible = false;
             Plink.Visible = false;
             Phash.Visible = false;
             Papp_id.Visible = false;
             Powner_id.Visible = false;
-            
+
             switch (keyboard.buttons[row][col])
             {
                 case Keyboard.text t:
                     {
                         CBbtype.SelectedIndex = 0;
                         TBlabel.Text = t.action.label;
+                        Pcolor.Visible = true;
                         TBpayload.Text = t.action.payload;
 
                         Plabel.Visible = true;
@@ -324,6 +333,20 @@ namespace VK_keyboard_winforms
                     }
                     break;
             }
+        }
+
+        private void PV_btn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            /*string[] btnn_ = btn.Name.Substring("PV_".Length).Split('_');
+            int row = int.Parse(btnn_[0]);
+            int col = int.Parse(btnn_[1]);*/
+            now.btn = btn;
+            int row = now.row;
+            int col = now.col;
+            // mb($"{row} - {col}");
+
+            setPanels(row, col);
             
         }
 
@@ -331,6 +354,311 @@ namespace VK_keyboard_winforms
         {
             string url = "https://vk.com/dev/bots_docs_3";
             System.Diagnostics.Process.Start(url);
+        }
+
+        private void CBbtype_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int row = now.row;
+            int col = now.col;
+            var kbn = keyboard.buttons[row][col];
+
+            switch (CBbtype.SelectedItem as string)
+            {
+                case "Text":
+                    {
+                        if (kbn is Keyboard.text) return;
+                        Keyboard.text kn = new Keyboard.text();
+                        switch (kbn)
+                        {
+                            case Keyboard.open_link t:
+                                kn.action.label = t.action.label;
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.location t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.vkpay t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_app t:
+                                kn.action.label = t.action.label;
+                                kn.action.payload = t.action.payload;
+                                break;
+                        }
+                        keyboard.buttons[row][col] = kn;
+                    }
+                    break;
+                case "Open Link":
+                    {
+                        if (kbn is Keyboard.open_link) return;
+                        Keyboard.open_link kn = new Keyboard.open_link();
+                        switch (kbn)
+                        {
+                            case Keyboard.text t:
+                                kn.action.label = t.action.label;
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.location t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.vkpay t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_app t:
+                                kn.action.label = t.action.label;
+                                kn.action.payload = t.action.payload;
+                                break;
+                        }
+                        keyboard.buttons[row][col] = kn;
+                    }
+                    break;
+                case "Location":
+                    {
+                        if (kbn is Keyboard.location) return;
+                        Keyboard.location kn = new Keyboard.location();
+                        switch (kbn)
+                        {
+                            case Keyboard.text t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_link t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.vkpay t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_app t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                        }
+                        keyboard.buttons[row][col] = kn;
+                    }
+                    break;
+                case "VK Pay":
+                    {
+                        if (kbn is Keyboard.vkpay) return;
+                        Keyboard.vkpay kn = new Keyboard.vkpay();
+                        switch (kbn)
+                        {
+                            case Keyboard.text t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_link t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.location t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_app t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                        }
+                        keyboard.buttons[row][col] = kn;
+                    }
+                    break;
+                case "VK Apps":
+                    {
+                        if (kbn is Keyboard.open_app) return;
+                        Keyboard.open_app kn = new Keyboard.open_app();
+                        switch (kbn)
+                        {
+                            case Keyboard.text t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.open_link t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.location t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                            case Keyboard.vkpay t:
+                                kn.action.payload = t.action.payload;
+                                break;
+                        }
+                        keyboard.buttons[row][col] = kn;
+                    }
+                    break;
+            }
+            setPanels(row, col);
+            kbUpd();
+        }
+
+        private void CB_Click(object sender, EventArgs e)
+        {
+            string color_name = (sender as Button).Name.Substring(2); 
+            Color color_ = colors.fromStr(color_name); //mb(color_name + "   " + color_.ToString());
+            now.btn.BackColor = color_;
+            if (color_ == Color.White) now.btn.ForeColor = fromHEX("#55677d"); else now.btn.ForeColor = Color.White;
+            (keyboard.buttons[now.row][now.col] as Keyboard.button).color = color_name;
+            kbUpd();
+        }
+
+        private void TBlabel_TextChanged(object sender, EventArgs e)
+        {
+            string txt = (sender as TextBox).Text;
+            now.btn.Text = txt;
+            switch (keyboard.buttons[now.row][now.col])
+            {
+                case Keyboard.text t:
+                    t.action.label = txt;
+                    break;
+                case Keyboard.open_link t:
+                    t.action.label = txt;
+                    break;
+                case Keyboard.open_app t:
+                    t.action.label = txt;
+                    break;
+            }
+            kbUpd();
+        }
+
+        private void TBlink_TextChanged(object sender, EventArgs e)
+        {
+            string link = (sender as TextBox).Text;
+            (keyboard.buttons[now.row][now.col] as Keyboard.open_link).action.link = link;
+            kbUpd();
+        }
+
+        private void TBhash_TextChanged(object sender, EventArgs e)
+        {
+            string hash = (sender as TextBox).Text;
+            switch (keyboard.buttons[now.row][now.col])
+            {
+                case Keyboard.vkpay t:
+                    t.action.hash = hash;
+                    break;
+                case Keyboard.open_app t:
+                    t.action.hash = hash;
+                    break;
+            }
+            kbUpd();
+        }
+
+        private void TBapp_id_TextChanged(object sender, EventArgs e)
+        {
+            string app_id = (sender as TextBox).Text;
+            (keyboard.buttons[now.row][now.col] as Keyboard.open_app).action.app_id = int.Parse(app_id);
+            kbUpd();
+        }
+
+        private void TBowner_id_TextChanged(object sender, EventArgs e)
+        {
+            string owner_id = (sender as TextBox).Text;
+            (keyboard.buttons[now.row][now.col] as Keyboard.open_app).action.owner_id = int.Parse(owner_id);
+            kbUpd();
+        }
+
+        private void TBpayload_TextChanged(object sender, EventArgs e)
+        {
+            string payload = (sender as TextBox).Text;
+            switch (keyboard.buttons[now.row][now.col])
+            {
+                case Keyboard.text t:
+                    t.action.payload = payload;
+                    break;
+                case Keyboard.open_link t:
+                    t.action.payload = payload;
+                    break;
+                case Keyboard.location t:
+                    t.action.payload = payload;
+                    break;
+                case Keyboard.vkpay t:
+                    t.action.payload = payload;
+                    break;
+                case Keyboard.open_app t:
+                    t.action.payload = payload;
+                    break;
+            }
+            kbUpd();
+        }
+
+        public void remove_row(TableLayoutPanel panel, int row_index_to_remove)
+        {
+            if (row_index_to_remove >= panel.RowCount) return;
+
+            // delete all controls of row that we want to delete
+            for (int i = 0; i < panel.ColumnCount; i++)
+            {
+                var control = panel.GetControlFromPosition(i, row_index_to_remove);
+                panel.Controls.Remove(control);
+            }
+
+            // move up row controls that comes after row we want to remove
+            for (int i = row_index_to_remove + 1; i < panel.RowCount; i++)
+            {
+                for (int j = 0; j < panel.ColumnCount; j++)
+                {
+                    var control = panel.GetControlFromPosition(j, i);
+                    if (control != null)
+                    {
+                        panel.SetRow(control, i - 1);
+                    }
+                }
+            }
+
+            // remove last row
+            panel.RowStyles.RemoveAt(panel.RowCount - 1);
+            panel.RowCount--;
+        }
+
+        public String ReplaceAt<T>(String str, int index, T newSymb)
+        {
+            return str.Remove(index, 1).Insert(index, newSymb.ToString());
+        }
+
+        private void Bdel_Click(object sender, EventArgs e)
+        {
+            int row = now.row; //mb(preview.Controls.Count); return;
+            int col = now.col;
+            if (keyboard.buttons[row].Count == 1)
+            {
+                keyboard.buttons.RemoveAt(row);
+                Spanel.Visible = false; //PV_row_
+                remove_row(preview, row);
+
+                for (int r = row; r < keyboard.buttons.Count; r++)
+                {
+                    TableLayoutPanel subPanel = (TableLayoutPanel)preview.GetControlFromPosition(0, r);
+                    subPanel.GetControlFromPosition(keyboard.buttons[r].Count, 0).Name = $"PV_addh_{r}";
+                    subPanel.Name = $"PV_row_{r}";
+                    //mb(preview.GetControlFromPosition(0,r).Name);
+                    for (int c = col; c < keyboard.buttons[r].Count; c++)
+                    {
+                        subPanel.GetControlFromPosition(c, 0).Name = $"PV_{r}_{c}";
+                    }
+                }
+                //preview.Controls.RemoveAt(row);
+                //preview.RowStyles.RemoveAt(row);
+                //review.RowCount--;
+            } else {
+                keyboard.buttons[row].RemoveAt(col);
+                Spanel.Visible = false; //PV_row_
+                TableLayoutPanel subPanel = (TableLayoutPanel)preview.GetControlFromPosition(0, row);
+                var control = subPanel.GetControlFromPosition(col, 0);
+                subPanel.Controls.Remove(control);
+
+                for (int j = col + 1; j < subPanel.ColumnCount-0; j++)
+                {
+                    control = subPanel.GetControlFromPosition(j, 0);
+                    if (control != null)
+                    {
+                        subPanel.SetColumn(control, j - 1);
+                        control.Name = ReplaceAt(control.Name, 5, j - 1);
+                    }
+                }
+                //control = subPanel.GetControlFromPosition(subPanel.ColumnCount - 1, 0); subPanel.SetColumn(control, subPanel.ColumnCount - 1);
+                subPanel.ColumnStyles.RemoveAt(col);
+                subPanel.ColumnCount--;
+
+                if (keyboard.buttons[row].Count == 4)
+                {
+                    subPanel.ColumnStyles[subPanel.ColumnStyles.Count - 1].Width = 30;
+                    subPanel.Controls[subPanel.Controls.Count - 1].Visible = true;
+                }
+            }
+            
+
+            kbUpd();
         }
     }
 }
