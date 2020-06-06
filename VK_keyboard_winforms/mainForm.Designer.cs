@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.проектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.документацяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_save = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_open = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_new = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_doc = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.CBinline = new System.Windows.Forms.CheckBox();
@@ -93,41 +93,43 @@
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.проектToolStripMenuItem,
-            this.открытьToolStripMenuItem,
-            this.создатьToolStripMenuItem,
-            this.документацяToolStripMenuItem});
+            this.menu_save,
+            this.menu_open,
+            this.menu_new,
+            this.menu_doc});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 33);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // проектToolStripMenuItem
+            // menu_save
             // 
-            this.проектToolStripMenuItem.Name = "проектToolStripMenuItem";
-            this.проектToolStripMenuItem.Size = new System.Drawing.Size(119, 29);
-            this.проектToolStripMenuItem.Text = "Сохранить";
+            this.menu_save.Name = "menu_save";
+            this.menu_save.Size = new System.Drawing.Size(119, 29);
+            this.menu_save.Text = "Сохранить";
+            this.menu_save.Click += new System.EventHandler(this.menu_save_Click);
             // 
-            // открытьToolStripMenuItem
+            // menu_open
             // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(99, 29);
-            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.menu_open.Name = "menu_open";
+            this.menu_open.Size = new System.Drawing.Size(99, 29);
+            this.menu_open.Text = "Открыть";
+            this.menu_open.Click += new System.EventHandler(this.menu_open_Click);
             // 
-            // создатьToolStripMenuItem
+            // menu_new
             // 
-            this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
-            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(95, 29);
-            this.создатьToolStripMenuItem.Text = "Создать";
+            this.menu_new.Name = "menu_new";
+            this.menu_new.Size = new System.Drawing.Size(95, 29);
+            this.menu_new.Text = "Создать";
             // 
-            // документацяToolStripMenuItem
+            // menu_doc
             // 
-            this.документацяToolStripMenuItem.Name = "документацяToolStripMenuItem";
-            this.документацяToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.документацяToolStripMenuItem.Size = new System.Drawing.Size(141, 29);
-            this.документацяToolStripMenuItem.Text = "Документаця";
-            this.документацяToolStripMenuItem.Click += new System.EventHandler(this.документацяToolStripMenuItem_Click);
+            this.menu_doc.Name = "menu_doc";
+            this.menu_doc.ShortcutKeyDisplayString = "";
+            this.menu_doc.Size = new System.Drawing.Size(141, 29);
+            this.menu_doc.Text = "Документаця";
+            this.menu_doc.Click += new System.EventHandler(this.документацяToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -504,13 +506,12 @@
             this.preview.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.preview.ColumnCount = 1;
             this.preview.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.preview.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.preview.Controls.Add(this.PV_addv, 0, 0);
             this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 633F));
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.preview.Size = new System.Drawing.Size(452, 478);
             this.preview.TabIndex = 2;
             // 
@@ -596,14 +597,14 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem проектToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menu_save;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TabControl view;
         private System.Windows.Forms.TabPage previewTP;
         private System.Windows.Forms.TabPage jsonview;
-        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menu_open;
+        private System.Windows.Forms.ToolStripMenuItem menu_new;
         private System.Windows.Forms.CheckBox CBonetime;
         private System.Windows.Forms.CheckBox CBinline;
         private System.Windows.Forms.TableLayoutPanel preview;
@@ -620,7 +621,7 @@
         private System.Windows.Forms.TextBox TBlabel;
         private System.Windows.Forms.GroupBox Pcolor;
         private System.Windows.Forms.GroupBox Pbtype;
-        private System.Windows.Forms.ToolStripMenuItem документацяToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menu_doc;
         private System.Windows.Forms.GroupBox Plink;
         private System.Windows.Forms.TextBox TBlink;
         private System.Windows.Forms.GroupBox Phash;
