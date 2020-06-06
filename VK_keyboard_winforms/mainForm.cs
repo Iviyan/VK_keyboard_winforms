@@ -34,17 +34,6 @@ namespace VK_keyboard_winforms
             kbUpd();
 
             now = new Now();
-
-            var settings = new JsonSerializerSettings() { DefaultValueHandling = DefaultValueHandling.Populate };
-            string json1 = @"{'ii':123}"; string json2 = @"{}";
-            var c = JsonConvert.DeserializeObject<Test>(json2, settings);
-
-            //mb(c.ii);
-        }
-        class Test
-        {
-            [DefaultValue(6)]
-            public int ii { get; set; }
         }
 
         public class Now
@@ -205,11 +194,11 @@ namespace VK_keyboard_winforms
 
         TableLayoutPanel PV_addRow()
         {
-            int rc = keyboard.buttons.Count; //mb(preview.RowCount); mb(preview.RowStyles.Count);
+            int rc = preview.RowCount-1; //mb(preview.RowCount); mb(preview.RowStyles.Count);
 
             preview.RowCount++;
-            preview.RowStyles.Insert(rc - 1, new RowStyle(SizeType.Absolute, 38));
-            preview.Controls.Add(PV_addv, 0, rc);
+            preview.RowStyles.Insert(rc, new RowStyle(SizeType.Absolute, 38));
+            preview.Controls.Add(PV_addv, 0, rc+1);
             if (rc >= 10 - 1)
             {
                 //preview.RowStyles[rc + 1].Height = 0;
@@ -218,7 +207,7 @@ namespace VK_keyboard_winforms
 
             TableLayoutPanel row = new TableLayoutPanel();
             row.Dock = DockStyle.Fill;
-            row.Name = "PV_row_" + (rc - 1).ToString();
+            row.Name = "PV_row_" + (rc).ToString();
             row.ColumnCount = 2;
             row.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             row.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30));
@@ -227,7 +216,7 @@ namespace VK_keyboard_winforms
             row.Margin = new Padding(0);
 
             Button PV_btn = new Button();
-            PV_btn.Name = $"PV_{rc - 1}_0";
+            PV_btn.Name = $"PV_{rc}_0";
             PV_btn.Text = PV_btn.Name;
             PV_btn.Dock = DockStyle.Fill;
             PV_btn.BackColor = colors.primary;
@@ -236,10 +225,10 @@ namespace VK_keyboard_winforms
             PV_btn.Click += PV_btn_Click;
 
             row.Controls.Add(PV_btn, 0, 0);
-            preview.Controls.Add(row, 0, rc - 1);
+            preview.Controls.Add(row, 0, rc);
 
             Button PV_addh = new Button();
-            PV_addh.Name = "PV_addh_" + (rc - 1).ToString();
+            PV_addh.Name = "PV_addh_" + (rc).ToString();
             PV_addh.Text = "+";
             PV_addh.Dock = DockStyle.Fill;
             PV_addh.Margin = new Padding(2, 3, 8, 3);
@@ -250,29 +239,29 @@ namespace VK_keyboard_winforms
         }
         Button PV_addCol(int row)
         {
-            int cc = keyboard.buttons[row].Count;
             TableLayoutPanel rowel = preview.GetControlFromPosition(0, row) as TableLayoutPanel;
+            int cc = rowel.ColumnCount - 1;
             rowel.ColumnCount++;
-            rowel.ColumnStyles.Insert(cc-1, new ColumnStyle(SizeType.Percent, 100));
+            rowel.ColumnStyles.Insert(cc, new ColumnStyle(SizeType.Percent, 100));
 
             Button addh = rowel.Controls.Find($"PV_addh_{row}",false).FirstOrDefault() as Button;// mb(addh);
-            rowel.Controls.Add(addh, cc , 0);
+            rowel.Controls.Add(addh, cc+1 , 0);
 
-            if (cc >= 5)
+            if (cc >= 5-1)
             {
-                rowel.ColumnStyles[cc].Width = 5;
+                rowel.ColumnStyles[cc+1].Width = 5;
                 addh.Visible = false;
             }
 
             Button PV_btn = new Button();
-            PV_btn.Name = $"PV_{row}_{cc-1}";
+            PV_btn.Name = $"PV_{row}_{cc}";
             PV_btn.Text = PV_btn.Name;
             PV_btn.Dock = DockStyle.Fill;
             PV_btn.BackColor = colors.primary;
             PV_btn.Margin = new Padding(1);
             PV_btn.ForeColor = Color.White;
             PV_btn.Click += PV_btn_Click;
-            rowel.Controls.Add(PV_btn, cc-1, 0);
+            rowel.Controls.Add(PV_btn, cc, 0);
 
             return PV_btn;
         }
@@ -349,13 +338,15 @@ namespace VK_keyboard_winforms
                     {
                         CBbtype.SelectedIndex = 2;
                         TBpayload.Text = t.action.payload;
-                    }
+                        TBlabel.Text = "Отправить своё местоположение";
+                       }
                     break;
                 case Keyboard.vkpay t:
                     {
                         CBbtype.SelectedIndex = 3;
                         TBhash.Text = t.action.hash;
                         TBpayload.Text = t.action.payload;
+                        TBlabel.Text = "Оплатить через VKpay";
 
                         Phash.Visible = true;
                     }
@@ -656,7 +647,16 @@ namespace VK_keyboard_winforms
         {
             return str.Remove(index, 1).Insert(index, newSymb.ToString());
         }
-
+        public Control GetControlAt(TableLayoutPanel panel, int column, int row)
+        {
+            foreach (Control control in panel.Controls)
+            {
+                var cellPosition = panel.GetCellPosition(control);// mb($"{control.Name} - {cellPosition.Column} _ {cellPosition.Row}");
+                if (cellPosition.Column == column && cellPosition.Row == row)
+                    return control;
+            }
+            return null;
+        }
         private void Bdel_Click(object sender, EventArgs e)
         {
             saved = false;
@@ -680,6 +680,11 @@ namespace VK_keyboard_winforms
                         subPanel.GetControlFromPosition(c, 0).Name = $"PV_{r}_{c}";
                     }
                 }
+
+                if (keyboard.buttons.Count == 9)
+                {
+                    PV_addv.Visible = true;
+                }
                 //preview.Controls.RemoveAt(row);
                 //preview.RowStyles.RemoveAt(row);
                 //review.RowCount--;
@@ -690,7 +695,7 @@ namespace VK_keyboard_winforms
                 var control = subPanel.GetControlFromPosition(col, 0);
                 subPanel.Controls.Remove(control);
 
-                for (int j = col + 1; j < subPanel.ColumnCount-0; j++)
+                for (int j = col + 1; j < subPanel.ColumnCount-1; j++)
                 {
                     control = subPanel.GetControlFromPosition(j, 0);
                     if (control != null)
@@ -699,14 +704,16 @@ namespace VK_keyboard_winforms
                         control.Name = ReplaceAt(control.Name, 5, j - 1);
                     }
                 }
-                //control = subPanel.GetControlFromPosition(subPanel.ColumnCount - 1, 0); subPanel.SetColumn(control, subPanel.ColumnCount - 1);
+                control = GetControlAt(subPanel, subPanel.ColumnCount-1, 0);
+                control.Name = $"PV_addh_{row}"; subPanel.SetColumn(control, subPanel.ColumnCount - 1);
                 subPanel.ColumnStyles.RemoveAt(col);
                 subPanel.ColumnCount--;
 
                 if (keyboard.buttons[row].Count == 4)
                 {
                     subPanel.ColumnStyles[subPanel.ColumnStyles.Count - 1].Width = 30;
-                    subPanel.Controls[subPanel.Controls.Count - 1].Visible = true;
+                    //subPanel.Controls.Find($"PV_addh_{row}", false).FirstOrDefault().Visible = true;
+                    control.Visible = true;
                 }
             }
             
@@ -714,7 +721,7 @@ namespace VK_keyboard_winforms
             kbUpd();
         }
 
-        private void menu_save_Click(object sender, EventArgs e)
+        public bool Save()
         {
             string fn;
             if (fileName == "")
@@ -725,31 +732,41 @@ namespace VK_keyboard_winforms
                 sfd.Title = "Сохранение клавиатуры";
                 sfd.Filter = "JSON files(*.JSON)|*.JSON|Text files(*.txt)|*.txt";
 
-                if (sfd.ShowDialog() == DialogResult.Cancel) return;
+                if (sfd.ShowDialog() == DialogResult.Cancel) return false;
                 fn = sfd.FileName;
             }
             else fn = fileName;
             //mb(sfd.FileName);
             System.IO.File.WriteAllText(fn, JSONtb.Text);
             saved = true;
+            return true;
+        }
+        private void menu_save_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        public bool askSave() //false - отмена
+        {
+            if (saved) return true;
+            DialogResult result = MessageBox.Show(
+                "Сохранить текущую клавиатуру?",
+                "Подтверждение",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+            switch (result)
+            {
+                case DialogResult.Cancel: return false;
+                case DialogResult.Yes: if (!Save()) return false; break;
+                case DialogResult.No: break;
+            }
+            return true;
         }
 
         private void menu_open_Click(object sender, EventArgs e)
         {
-            if (!saved)
-            {
-                DialogResult result = MessageBox.Show(
-                    "Сохранить текущую клавиатуру?",
-                    "Подтверждение",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
-                switch (result)
-                {
-                    case DialogResult.Cancel: return;
-                    case DialogResult.Yes: menu_save.PerformClick(); break;
-                    case DialogResult.No: break;
-                }
-            }
+            if (!askSave()) return;
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "json";
             ofd.AddExtension = true;
@@ -765,30 +782,75 @@ namespace VK_keyboard_winforms
                 Keyboard kb_ = new Keyboard();//JsonConvert.DeserializeObject<Keyboard>(text, settings); //mb(keyboard.buttons[0][0] as Keyboard.text);
 
                 JObject kb = JObject.Parse(text);
-                if (kb.ContainsKey("inline") && (bool)kb["inline"]) kb_.inline = true;
-                if (kb.ContainsKey("one_time") && (bool)kb["one_time"]) kb_.one_time = true;
+                if (kb.ContainsKey("inline") && (bool)kb["inline"]) { kb_.inline = true; CBinline.Checked = true; };
+                if (kb.ContainsKey("one_time") && (bool)kb["one_time"]) { kb_.one_time = true; CBonetime.Checked = true; };
                 JArray rows = (JArray)kb["buttons"];
                 for (int r = 0; r < rows.Count; r++)
                 {
                     JArray cols = (JArray)rows[r];
+                    kb_.buttons.Add(new List<object>());
                     for (int c = 0; c < cols.Count; c++)
                     {
                         //mb($"{r}_{c}\n{cols[c]}");
                         JObject btn = (JObject)cols[c];
-
+                        object b_add = null;
                         switch ((string)btn["action"]["type"])
                         {
                             case "text":
-                                var b = new Keyboard.text();
-                                string color = "primary";
-                                if (btn.ContainsKey("inline")) color = (string)btn["color"];
-                                b.color = color;
-                                
-                                break;
+                                {
+                                    var b = new Keyboard.text();
+
+                                    b.color = (btn.ContainsKey("color")) ? (string)btn["color"] : "primary";
+                                    b.action.label = (string)btn["action"]["label"];
+                                    b.action.payload = (string)btn["action"]["payload"];
+                                    b_add = b;
+                                } break;
+                            case "open_link":
+                                {
+                                    var b = new Keyboard.open_link();
+
+                                    b.color = (btn.ContainsKey("color")) ? (string)btn["color"] : "primary";
+                                    b.action.label = (string)btn["action"]["label"];
+                                    b.action.link = (string)btn["action"]["link"];
+                                    b.action.payload = (string)btn["action"]["payload"];
+                                    b_add = b;
+                                } break;
+                            case "location":
+                                {
+                                    var b = new Keyboard.location();
+
+                                    b.color = (btn.ContainsKey("color")) ? (string)btn["color"] : "primary";
+                                    b.action.payload = (string)btn["action"]["payload"];
+                                    b_add = b;
+                                } break;
+                            case "vkpay":
+                                {
+                                    var b = new Keyboard.vkpay();
+
+                                    b.color = (btn.ContainsKey("color")) ? (string)btn["color"] : "primary";
+                                    b.action.hash = (string)btn["action"]["hash"];
+                                    b.action.payload = (string)btn["action"]["payload"];
+                                    b_add = b;
+                                } break;
+                            case "open_app":
+                                {
+                                    var b = new Keyboard.open_app();
+
+                                    b.color = (btn.ContainsKey("color")) ? (string)btn["color"] : "primary";
+                                    b.action.app_id = int.Parse((string)btn["action"]["app_id"]);
+                                    b.action.owner_id = int.Parse((string)btn["action"]["owner_id"]);
+                                    b.action.label = (string)btn["action"]["label"];
+                                    b.action.hash = (string)btn["action"]["hash"];
+                                    b.action.payload = (string)btn["action"]["payload"];
+                                    b_add = b;
+                                } break;
                         }
+
+                        kb_.buttons[r].Add(b_add);
                     }
                 };
-
+                keyboard = kb_;
+                
                 kbUpd();
 
                 preview.Controls.Clear();
@@ -804,14 +866,13 @@ namespace VK_keyboard_winforms
 
                     for (int c = 1; c < keyboard.buttons[r].Count; c++)
                     {
-                        mb(keyboard.buttons[r][c]);
                         PV_btn_set(PV_addCol(r), keyboard.buttons[r][c]);
                     }
                 }
+                saved = true;
             } catch (Exception err)
             {
-                throw err;
-                mb($"Ошибка: {err.ToString()}");
+                mb($"Ошибка: {err}");
             }
         }
 
@@ -822,12 +883,40 @@ namespace VK_keyboard_winforms
                 case Keyboard.text t: btn.Text = t.action.label; break;
                 case Keyboard.open_link t: btn.Text = t.action.label; break;
                 case Keyboard.open_app t: btn.Text = t.action.label; break;
+                case Keyboard.location t: btn.Text = "Отправить своё местоположение"; break;
+                case Keyboard.vkpay t: btn.Text = "Оплатить через VKpay"; break;
             }
 
             string color_name = (obj as Keyboard.button)?.color;// mb(obj);
             Color color_ = colors.fromStr(color_name); //mb(color_name + "   " + color_.ToString());
             btn.BackColor = color_;
             if (color_ == Color.White) btn.ForeColor = fromHEX("#55677d"); else btn.ForeColor = Color.White;
+        }
+
+        private void menu_new_Click(object sender, EventArgs e)
+        {
+            if (!askSave()) return;
+
+            preview.Controls.Clear();
+            preview.RowStyles.Clear();
+            preview.RowCount = 1;
+            preview.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            preview.Controls.Add(this.PV_addv, 0, 0);
+
+            CBinline.Checked = false;
+            CBonetime.Checked = false;
+
+            keyboard = new Keyboard();
+            kbUpd();
+
+            fileName = "";
+
+            saved = true;
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!askSave()) e.Cancel = true;
         }
     }
 }

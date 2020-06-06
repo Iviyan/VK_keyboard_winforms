@@ -122,6 +122,7 @@
             this.menu_new.Name = "menu_new";
             this.menu_new.Size = new System.Drawing.Size(95, 29);
             this.menu_new.Text = "Создать";
+            this.menu_new.Click += new System.EventHandler(this.menu_new_Click);
             // 
             // menu_doc
             // 
@@ -511,7 +512,7 @@
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 477F));
             this.preview.Size = new System.Drawing.Size(452, 478);
             this.preview.TabIndex = 2;
             // 
@@ -560,6 +561,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "mainForm";
             this.Text = "Клавиатура";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
