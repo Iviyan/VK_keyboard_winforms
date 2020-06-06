@@ -150,7 +150,7 @@ namespace VK_keyboard_winforms
         public string kbJSON()
         {
             JsonSerializerSettings js = new JsonSerializerSettings();
-            js.Formatting = Formatting.Indented;
+            if (!CBJSONMinify.Checked) js.Formatting = Formatting.Indented;
             js.DefaultValueHandling = DefaultValueHandling.Ignore;
             js.NullValueHandling = NullValueHandling.Ignore;
 
@@ -917,6 +917,11 @@ namespace VK_keyboard_winforms
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!askSave()) e.Cancel = true;
+        }
+
+        private void CBJSONMinify_CheckedChanged(object sender, EventArgs e)
+        {
+            kbUpd();
         }
     }
 }

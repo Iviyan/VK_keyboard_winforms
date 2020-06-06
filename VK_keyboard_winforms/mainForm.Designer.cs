@@ -65,6 +65,7 @@
             this.PV_addv = new System.Windows.Forms.Button();
             this.jsonview = new System.Windows.Forms.TabPage();
             this.JSONtb = new System.Windows.Forms.RichTextBox();
+            this.CBJSONMinify = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -512,7 +513,7 @@
             this.preview.Location = new System.Drawing.Point(3, 3);
             this.preview.Name = "preview";
             this.preview.RowCount = 1;
-            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 477F));
+            this.preview.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 480F));
             this.preview.Size = new System.Drawing.Size(452, 478);
             this.preview.TabIndex = 2;
             // 
@@ -534,6 +535,7 @@
             // jsonview
             // 
             this.jsonview.Controls.Add(this.JSONtb);
+            this.jsonview.Controls.Add(this.CBJSONMinify);
             this.jsonview.Location = new System.Drawing.Point(4, 29);
             this.jsonview.Name = "jsonview";
             this.jsonview.Padding = new System.Windows.Forms.Padding(3);
@@ -545,11 +547,23 @@
             // JSONtb
             // 
             this.JSONtb.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JSONtb.Location = new System.Drawing.Point(3, 3);
+            this.JSONtb.Location = new System.Drawing.Point(3, 27);
             this.JSONtb.Name = "JSONtb";
-            this.JSONtb.Size = new System.Drawing.Size(452, 478);
+            this.JSONtb.Size = new System.Drawing.Size(452, 454);
             this.JSONtb.TabIndex = 0;
             this.JSONtb.Text = "";
+            // 
+            // CBJSONMinify
+            // 
+            this.CBJSONMinify.AutoSize = true;
+            this.CBJSONMinify.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CBJSONMinify.Location = new System.Drawing.Point(3, 3);
+            this.CBJSONMinify.Name = "CBJSONMinify";
+            this.CBJSONMinify.Size = new System.Drawing.Size(452, 24);
+            this.CBJSONMinify.TabIndex = 1;
+            this.CBJSONMinify.Text = "JSON minify";
+            this.CBJSONMinify.UseVisualStyleBackColor = true;
+            this.CBJSONMinify.CheckedChanged += new System.EventHandler(this.CBJSONMinify_CheckedChanged);
             // 
             // mainForm
             // 
@@ -592,6 +606,7 @@
             this.preview.ResumeLayout(false);
             this.preview.PerformLayout();
             this.jsonview.ResumeLayout(false);
+            this.jsonview.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -635,5 +650,6 @@
         private System.Windows.Forms.GroupBox Ppayload;
         private System.Windows.Forms.TextBox TBpayload;
         private System.Windows.Forms.Button Bdel;
+        private System.Windows.Forms.CheckBox CBJSONMinify;
     }
 }
